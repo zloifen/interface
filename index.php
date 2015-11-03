@@ -6,11 +6,14 @@ function __autoload($class_name)
 
 $db = new db();
 $db_connect = sqlsrv_connect("ATTO\SQLEXPRESS", array("CharacterSet" => "UTF-8"));
-echo "<a href='/index.php?table=class'>class</a> ";
-echo "<a href='/index.php?table=department'>department</a> ";
-echo "<a href='/index.php?table=roles'>roles</a> ";
-echo "<a href='/index.php?table=diagnosis'>diagnosis</a> ";
-echo "<a href='/index.php?table=drugs'>drugs</a> ";
+echo "<a href='/index.php?table=class'>Кабинеты</a> ";
+echo "<a href='/index.php?table=department'>Отделения</a> ";
+echo "<a href='/index.php?table=roles'>Должности</a> ";
+echo "<a href='/index.php?table=diagnosis'>Диагнозы</a> ";
+echo "<a href='/index.php?table=drugs'>Лекарства</a> ";
+echo "<a href='/index.php?table=procedure'>Процедуры</a> ";
+echo "<a href='/index.php?table=employees'>Работники</a> ";
+echo "<a href='/index.php?table=patients'>Пациенты</a>";
 echo "<br/>";
 if ($_GET['table'] == "class") {
     $query = "SELECT * FROM [Bolnica].[dbo].[Class]";
@@ -66,6 +69,52 @@ if ($_GET['table'] == "drugs") {
     <input type='text' placeholder='Название лекарства' name='name'/>
     <input type='text' placeholder='Продолжительность приема' name='duration'/> дней
     <input type='text' placeholder='Дневная доза' name='dailydose'/>
+    <input type='submit' value='добавить'></form>";
+    while ($row = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)) {
+        print_r($row);
+        echo "<br/>";
+    }
+}
+
+if ($_GET['table'] == "procedure") {
+    $query = "SELECT * FROM [Bolnica].[dbo].[Procedure]";
+    $sql = sqlsrv_query($db_connect, $query);
+    echo "<form action='/process.php?insert=1&table=procedure' method='post'>
+    <input type='text' placeholder='Название процедуры' name='name'/>
+    <input type='text' placeholder='Стоимость' name='price'/>
+    <input type='submit' value='добавить'></form>";
+    while ($row = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)) {
+        print_r($row);
+        echo "<br/>";
+    }
+}
+
+if ($_GET['table'] == "employees") {
+    $query = "SELECT * FROM [Bolnica].[dbo].[Employees]";
+    $sql = sqlsrv_query($db_connect, $query);
+    echo "<form action='/process.php?insert=1&table=employees' method='post'>
+    <input type='text' placeholder='ФИО' name='fio'/>
+    <input type='text' placeholder='Дата рождения' name='birthday'/>
+    <input type='text' placeholder='Должность' name='role'/>
+    <input type='text' placeholder='Отделение' name='department'/>
+    <input type='text' placeholder='Кабинет' name='class'/>
+    <input type='text' placeholder='Специализация' name='specialization'/>
+    <input type='submit' value='добавить'></form>";
+    while ($row = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)) {
+        print_r($row);
+        echo "<br/>";
+    }
+}
+
+if ($_GET['table'] == "patients") {
+    $query = "SELECT * FROM [Bolnica].[dbo].[Patients]";
+    $sql = sqlsrv_query($db_connect, $query);
+    echo "<form action='/process.php?insert=1&table=patients' method='post'>
+    <input type='text' placeholder='ФИО' name='fio'/>
+    <input type='text' placeholder='Дата рождения' name='birthday'/>
+    <input type='text' placeholder='Диагноз' name='diagnosis'/>
+    <input type='text' placeholder='Дата поступления' name='datein'/>
+    <input type='text' placeholder='Дата выписки' name='dateout'/>
     <input type='submit' value='добавить'></form>";
     while ($row = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)) {
         print_r($row);
