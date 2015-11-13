@@ -28,7 +28,7 @@ echo "<!DOCTYPE html>
         <span class='icon-bar'></span>
     </button>
     <div class='navbar-header'>
-        <a class='navbar-brand' href='/'>Больница Лешка Не Умеет В Git</a>
+        <a class='navbar-brand' href='/'>Больница №9</a>
     </div>
     <div class='navbar-collapse collapse navbar-responsive-collapse'>
         <ul class='nav navbar-nav'>
