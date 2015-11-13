@@ -28,7 +28,7 @@ echo "<!DOCTYPE html>
         <span class='icon-bar'></span>
     </button>
     <div class='navbar-header'>
-        <a class='navbar-brand' href='/'>Больница Лешка Не Умеет В Git</a>
+        <a class='navbar-brand' href='/'>Больница</a>
     </div>
     <div class='navbar-collapse collapse navbar-responsive-collapse'>
         <ul class='nav navbar-nav'>
@@ -40,12 +40,13 @@ echo "<!DOCTYPE html>
             <li><a href='/index.php?table=procedure'>Процедуры</a></li>
             <li><a href='/index.php?table=employees'>Работники</a></li>
             <li><a href='/index.php?table=patients'>Пациенты</a></li>
+            <li><a href='/index.php?table=card'>Карты пациентов</a></li>
         </ul>
     </div>
 </div>";
 
 if ($_GET['table'] == "class") {
-    $query = "SELECT * FROM [Bolnica].[dbo].[Class]";
+    $query = "SELECT * FROM [Hospital].[dbo].[Class]";
     $sql = sqlsrv_query($db_connect, $query);
     echo "<form action='/process.php?insert=1&table=class' method='post'>
     <input type='text' placeholder='Кабинет' name='class'/><input type='submit' value='добавить'></form><br>";
@@ -70,7 +71,7 @@ if ($_GET['table'] == "class") {
 }
 
 if ($_GET['table'] == "department") {
-    $query = "SELECT * FROM [Bolnica].[dbo].[Department]";
+    $query = "SELECT * FROM [Hospital].[dbo].[Department]";
     $sql = sqlsrv_query($db_connect, $query);
     echo "<form action='/process.php?insert=1&table=department' method='post'>
     <input type='text' placeholder='Отделение' name='department'/><input type='submit' value='добавить'></form><br>";
@@ -95,7 +96,7 @@ if ($_GET['table'] == "department") {
 }
 
 if ($_GET['table'] == "roles") {
-    $query = "SELECT * FROM [Bolnica].[dbo].[Roles]";
+    $query = "SELECT * FROM [Hospital].[dbo].[Roles]";
     $sql = sqlsrv_query($db_connect, $query);
     echo "<form action='/process.php?insert=1&table=roles' method='post'>
     <input type='text' placeholder='Должность' name='name'/>
@@ -124,7 +125,7 @@ if ($_GET['table'] == "roles") {
 
 
 if ($_GET['table'] == "diagnosis") {
-    $query = "SELECT * FROM [Bolnica].[dbo].[Diagnosis]";
+    $query = "SELECT * FROM [Hospital].[dbo].[Diagnosis]";
     $sql = sqlsrv_query($db_connect, $query);
     echo "<form action='/process.php?insert=1&table=diagnosis' method='post'>
     <input type='text' placeholder='Название диагноза' name='name'/>
@@ -150,7 +151,7 @@ if ($_GET['table'] == "diagnosis") {
 }
 
 if ($_GET['table'] == "drugs") {
-    $query = "SELECT * FROM [Bolnica].[dbo].[Drugs]";
+    $query = "SELECT * FROM [Hospital].[dbo].[Drugs]";
     $sql = sqlsrv_query($db_connect, $query);
     echo "<form action='/process.php?insert=1&table=drugs' method='post'>
     <input type='text' placeholder='Название лекарства' name='name'/>
@@ -182,7 +183,7 @@ if ($_GET['table'] == "drugs") {
 }
 
 if ($_GET['table'] == "procedure") {
-    $query = "SELECT * FROM [Bolnica].[dbo].[Procedure]";
+    $query = "SELECT * FROM [Hospital].[dbo].[Procedure]";
     $sql = sqlsrv_query($db_connect, $query);
     echo "<form action='/process.php?insert=1&table=procedure' method='post'>
     <input type='text' placeholder='Название процедуры' name='name'/>
@@ -211,7 +212,7 @@ if ($_GET['table'] == "procedure") {
 }
 
 if ($_GET['table'] == "employees") {
-    $query = "SELECT * FROM [Bolnica].[dbo].[Employees]";
+    $query = "SELECT * FROM [Hospital].[dbo].[Employees]";
     $sql = sqlsrv_query($db_connect, $query);
     echo "<form action='/process.php?insert=1&table=employees' method='post'>
     <input type='text' placeholder='ФИО' name='fio'/>
@@ -236,17 +237,17 @@ if ($_GET['table'] == "employees") {
     </thead>
     <tbody>";
     while ($row = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)) {
-        $query2 = "SELECT * FROM [Bolnica].[dbo].[Roles] WHERE ID = '{$row['RoleID']}'";
-        $sql2 = sqlsrv_query($db_connect, $query);
-        $row2 = sqlsrv_fetch_array($sql);
+        $query2 = "SELECT * FROM [Hospital].[dbo].[Roles] WHERE ID = '{$row['RoleID']}'";
+        $sql2 = sqlsrv_query($db_connect, $query2);
+        $row2 = sqlsrv_fetch_array($sql2);
 
-        $query2 = "SELECT * FROM [Bolnica].[dbo].[Department] WHERE ID = '{$row['DepartmentID']}'";
-        $sql3 = sqlsrv_query($db_connect, $query);
-        $row3 = sqlsrv_fetch_array($sql);
+        $query3 = "SELECT * FROM [Hospital].[dbo].[Department] WHERE ID = '{$row['DepartmentID']}'";
+        $sql3 = sqlsrv_query($db_connect, $query3);
+        $row3 = sqlsrv_fetch_array($sql3);
 
-        $query2 = "SELECT * FROM [Bolnica].[dbo].[Class] WHERE ID = '{$row['ClassID']}'";
-        $sql4 = sqlsrv_query($db_connect, $query);
-        $row4 = sqlsrv_fetch_array($sql);
+        $query4 = "SELECT * FROM [Hospital].[dbo].[Class] WHERE ID = '{$row['ClassID']}'";
+        $sql4 = sqlsrv_query($db_connect, $query4);
+        $row4 = sqlsrv_fetch_array($sql4);
         echo "<tr>
             <td>{$row['ID']}</td>
             <td>{$row['FullName']}</td>
@@ -263,14 +264,12 @@ if ($_GET['table'] == "employees") {
 }
 
 if ($_GET['table'] == "patients") {
-    $query = "SELECT * FROM [Bolnica].[dbo].[Patients]";
+    $query = "SELECT * FROM [Hospital].[dbo].[Patients]";
     $sql = sqlsrv_query($db_connect, $query);
     echo "<form action='/process.php?insert=1&table=patients' method='post'>
     <input type='text' placeholder='ФИО' name='fio'/>
     <input type='text' placeholder='Дата рождения' name='birthday'/>
-    <input type='text' placeholder='Диагноз' name='diagnosis'/>
-    <input type='text' placeholder='Дата поступления' name='datein'/>
-    <input type='text' placeholder='Дата выписки' name='dateout'/>
+    <input type='text' placeholder='Группа крови' name='bloodgroup'/>
     <input type='submit' value='добавить'></form><br>";
     echo "<table class='table table-striped table-hover '>
     <thead>
@@ -278,25 +277,17 @@ if ($_GET['table'] == "patients") {
             <th>Id</th>
             <th>ФИО</th>
             <th>Дата рождения</th>
-            <th>Диагноз</th>
-            <th>Дата поступления</th>
-            <th>Дата выписки</th>
+            <th>Группа крови</th>
             <th>Действия</th>
         </tr>
     </thead>
     <tbody>";
     while ($row = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)) {
-        $query2 = "SELECT * FROM [Bolnica].[dbo].[Diagnosis] WHERE ID = '{$row['RoleID']}'";
-        $sql2 = sqlsrv_query($db_connect, $query);
-        $row2 = sqlsrv_fetch_array($sql);
-
         echo "<tr>
             <td>{$row['ID']}</td>
             <td>{$row['FullName']}</td>
             <td>". $row['DateOfBirth']->format('Y-m-d') ."</td>
-            <td>{$row2['Name']}</td>
-            <td>". $row['DateIN']->format('Y-m-d') ."</td>
-            <td>". $row['DateOut']->format('Y-m-d') ."</td>
+            <td>{$row['BloodGroup']}</td>
             <td style = 'text-align: center'><a href='javascript:void(0)' class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
             <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
         </tr>";
@@ -304,6 +295,70 @@ if ($_GET['table'] == "patients") {
     echo "</tbody></table>";
 }
 
+if ($_GET['table'] == "card") {
+    $query = "SELECT * FROM [Hospital].[dbo].[Card]";
+    $sql = sqlsrv_query($db_connect, $query);
+    echo "<form action='/process.php?insert=1&table=card' method='post'>
+    <input type='text' placeholder='Id пациента' name='PatientID'/>
+    <input type='text' placeholder='Id врача' name='EmployeesID'/>
+    <input type='text' placeholder='Id диагноза' name='DiagnosisID'/>
+    <input type='text' placeholder='Id лекарства' name='DrugsID'/>
+    <input type='text' placeholder='Id процедуры' name='ProcedureID'/>
+    <input type='text' placeholder='Дата поступления' name='DateIn'/>
+    <input type='text' placeholder='Дата выписки' name='DateOut'/>
+    <input type='submit' value='добавить'></form><br>";
+    echo "<table class='table table-striped table-hover '>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Id пациента</th>
+            <th>Id врача</th>
+            <th>Id диагноза</th>
+            <th>Id лекарства</th>
+            <th>Id процедуры</th>
+            <th>Дата поступления</th>
+            <th>Дата выписки</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>";
+    while ($row = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)) {
+        $query2 = "SELECT * FROM [Hospital].[dbo].[Patients] WHERE ID = '{$row['PatientID']}'";
+        $sql2 = sqlsrv_query($db_connect, $query2);
+        $row2 = sqlsrv_fetch_array($sql2);
+
+        $query3 = "SELECT * FROM [Hospital].[dbo].[Employees] WHERE ID = '{$row['EmployeesID']}'";
+        $sql3 = sqlsrv_query($db_connect, $query3);
+        $row3 = sqlsrv_fetch_array($sql3);
+
+        $query4 = "SELECT * FROM [Hospital].[dbo].[Diagnosis] WHERE ID = '{$row['DiagnosisID']}'";
+        $sql4 = sqlsrv_query($db_connect, $query4);
+        $row4 = sqlsrv_fetch_array($sql4);
+
+        $query5 = "SELECT * FROM [Hospital].[dbo].[Drugs] WHERE ID = '{$row['DrugsID']}'";
+        $sql5 = sqlsrv_query($db_connect, $query5);
+        $row5 = sqlsrv_fetch_array($sql5);
+
+        $query6 = "SELECT * FROM [Hospital].[dbo].[Procedure] WHERE ID = '{$row['ProcedureID']}'";
+        $sql6 = sqlsrv_query($db_connect, $query6);
+        $row6 = sqlsrv_fetch_array($sql6);
+
+        echo "<tr>
+            <td>{$row['ID']}</td>
+            <td>{$row['PatientID']}</td>
+            <td>{$row2['Name']}</td>
+            <td>{$row3['Name']}</td>
+            <td>{$row4['Number']}</td>
+            <td>{$row5['Number']}</td>
+            <td>{$row6['Number']}</td>
+            <td>". $row['DateIn']->format('Y-m-d') ."</td>
+            <td>". $row['DateOut']->format('Y-m-d') ."</td>
+            <td style = 'text-align: center'><a href='javascript:void(0)' class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
+            <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
+        </tr>";
+    }
+    echo "</tbody></table>";
+}
 
 echo "<script src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js'></script>
 <script src='/js/material.min.js'></script>
