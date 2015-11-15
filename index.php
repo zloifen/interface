@@ -237,9 +237,12 @@ if ($_GET['table'] == "employees") {
     </thead>
     <tbody>";
     while ($row = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)) {
-        $query2 = "SELECT * FROM [Hospital].[dbo].[Roles] WHERE ID = '{$row['RoleID']}'";
+        $query2 = "SELECT * FROM [Hospital].[dbo].[Roles]";
         $sql2 = sqlsrv_query($db_connect, $query2);
-        $row2 = sqlsrv_fetch_array($sql2);
+        while ($row2 = sqlsrv_fetch_array($sql2, SQLSRV_FETCH_ASSOC)) {
+            "<option value ='{$row2['ID']}'> {$row2['Name']}</option>";
+        }
+        "<tr> <td> {$row2['ID']} </td>";
 
         $query3 = "SELECT * FROM [Hospital].[dbo].[Department] WHERE ID = '{$row['DepartmentID']}'";
         $sql3 = sqlsrv_query($db_connect, $query3);
