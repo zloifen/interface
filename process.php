@@ -35,7 +35,7 @@ if ((isset($_GET['insert'])) && ($_GET['insert'] == 1)) {
     }
 
     if ($_GET['table'] == 'drugs') {
-        $query = "INSERT INTO  [Hospital].[dbo].[Diagnosis] VALUES ('{$_POST['name']}', '{$_POST['duration']}',
+        $query = "INSERT INTO  [Hospital].[dbo].[Drugs] VALUES ('{$_POST['name']}', '{$_POST['duration']}',
         '{$_POST['dailydose']}')";
         $sql = sqlsrv_query($db_connect, $query);
         header('Location: /index.php?table=drugs');
