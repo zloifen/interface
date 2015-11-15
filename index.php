@@ -217,8 +217,13 @@ if ($_GET['table'] == "employees") {
     echo "<form action='/process.php?insert=1&table=employees' method='post'>
     <input type='text' placeholder='ФИО' name='fio'/>
     <input type='text' placeholder='Дата рождения' name='birthday'/>
-    <input type='text' placeholder='Должность' name='role'/>
-    <input type='text' placeholder='Отделение' name='department'/>
+    <select name='role'>";
+    $query21 = "SELECT * FROM [Hospital].[dbo].[Roles]";
+    $sql21 = sqlsrv_query($db_connect, $query21);
+    while ($row21 = sqlsrv_fetch_array($sql21, SQLSRV_FETCH_ASSOC)) {
+        echo "<option value ='{$row21['ID']}'> {$row21['Name']}</option>";
+    }
+    echo "</select><input type='text' placeholder='Отделение' name='department'/>
     <input type='text' placeholder='Кабинет' name='class'/>
     <input type='text' placeholder='Специализация' name='specialization'/>
     <input type='submit' value='добавить'></form><br>";
@@ -237,12 +242,9 @@ if ($_GET['table'] == "employees") {
     </thead>
     <tbody>";
     while ($row = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)) {
-        $query2 = "SELECT * FROM [Hospital].[dbo].[Roles]";
+        $query2 = "SELECT * FROM [Hospital].[dbo].[Roles] WHERE ID = '{$row['RoleID']}'";
         $sql2 = sqlsrv_query($db_connect, $query2);
-        while ($row2 = sqlsrv_fetch_array($sql2, SQLSRV_FETCH_ASSOC)) {
-            "<option value ='{$row2['ID']}'> {$row2['Name']}</option>";
-        }
-        "<tr> <td> {$row2['ID']} </td>";
+        $row2 = sqlsrv_fetch_array($sql2);
 
         $query3 = "SELECT * FROM [Hospital].[dbo].[Department] WHERE ID = '{$row['DepartmentID']}'";
         $sql3 = sqlsrv_query($db_connect, $query3);
