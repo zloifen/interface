@@ -223,8 +223,21 @@ if ($_GET['table'] == "employees") {
     while ($row21 = sqlsrv_fetch_array($sql21, SQLSRV_FETCH_ASSOC)) {
         echo "<option value ='{$row21['ID']}'> {$row21['Name']}</option>";
     }
-    echo "</select><input type='text' placeholder='Отделение' name='department'/>
-    <input type='text' placeholder='Кабинет' name='class'/>
+    echo "</select>
+    <select name='department'>";
+    $query22 = "SELECT * FROM [Hospital].[dbo].[Department]";
+    $sql22 = sqlsrv_query($db_connect, $query22);
+    while ($row22 = sqlsrv_fetch_array($sql22, SQLSRV_FETCH_ASSOC)) {
+        echo "<option value ='{$row22['ID']}'> {$row22['Name']}</option>";
+    }
+    echo "</select>
+    <select name='class'>";
+    $query23 = "SELECT * FROM [Hospital].[dbo].[Class]";
+    $sql23 = sqlsrv_query($db_connect, $query23);
+    while ($row23 = sqlsrv_fetch_array($sql23, SQLSRV_FETCH_ASSOC)) {
+        echo "<option value ='{$row23['ID']}'> {$row23['Number']}</option>";
+    }
+    echo "</select>
     <input type='text' placeholder='Специализация' name='specialization'/>
     <input type='submit' value='добавить'></form><br>";
     echo "<table class='table table-striped table-hover '>
@@ -242,12 +255,9 @@ if ($_GET['table'] == "employees") {
     </thead>
     <tbody>";
     while ($row = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)) {
-        $query2 = "SELECT * FROM [Hospital].[dbo].[Roles]";
+        $query2 = "SELECT * FROM [Hospital].[dbo].[Roles] WHERE ID = '{$row['RoleID']}'";
         $sql2 = sqlsrv_query($db_connect, $query2);
-        while ($row2 = sqlsrv_fetch_array($sql2, SQLSRV_FETCH_ASSOC)) {
-            "<option value ='{$row2['ID']}'> {$row2['Name']}</option>";
-        }
-        "<tr> <td> {$row2['ID']} </td>";
+        $row2 = sqlsrv_fetch_array($sql2);
 
         $query3 = "SELECT * FROM [Hospital].[dbo].[Department] WHERE ID = '{$row['DepartmentID']}'";
         $sql3 = sqlsrv_query($db_connect, $query3);
@@ -307,11 +317,41 @@ if ($_GET['table'] == "card") {
     $query = "SELECT * FROM [Hospital].[dbo].[Card]";
     $sql = sqlsrv_query($db_connect, $query);
     echo "<form action='/process.php?insert=1&table=card' method='post'>
-    <input type='text' placeholder='Id пациента' name='PatientID'/>
-    <input type='text' placeholder='Id врача' name='EmployeesID'/>
-    <input type='text' placeholder='Id диагноза' name='DiagnosisID'/>
-    <input type='text' placeholder='Id лекарства' name='DrugsID'/>
-    <input type='text' placeholder='Id процедуры' name='ProcedureID'/>
+    <select name='patients'>";
+    $query21 = "SELECT * FROM [Hospital].[dbo].[Patients]";
+    $sql21 = sqlsrv_query($db_connect, $query21);
+    while ($row21 = sqlsrv_fetch_array($sql21, SQLSRV_FETCH_ASSOC)) {
+        echo "<option value ='{$row21['ID']}'> {$row21['FullName']}</option>";
+    }
+    echo "</select>
+    <select name='employees'>";
+    $query22 = "SELECT * FROM [Hospital].[dbo].[Employees]";
+    $sql22 = sqlsrv_query($db_connect, $query22);
+    while ($row22 = sqlsrv_fetch_array($sql22, SQLSRV_FETCH_ASSOC)) {
+        echo "<option value ='{$row22['ID']}'> {$row22['FullName']}</option>";
+    }
+    echo "</select>
+    <select name='diagnosis'>";
+    $query23 = "SELECT * FROM [Hospital].[dbo].[Diagnosis]";
+    $sql23 = sqlsrv_query($db_connect, $query23);
+    while ($row23 = sqlsrv_fetch_array($sql23, SQLSRV_FETCH_ASSOC)) {
+        echo "<option value ='{$row23['ID']}'> {$row23['Name']}</option>";
+    }
+    echo "</select>
+    <select name='drugs'>";
+    $query24 = "SELECT * FROM [Hospital].[dbo].[Drugs]";
+    $sql24 = sqlsrv_query($db_connect, $query24);
+    while ($row24 = sqlsrv_fetch_array($sql24, SQLSRV_FETCH_ASSOC)) {
+        echo "<option value ='{$row24['ID']}'> {$row24['Name']}</option>";
+    }
+    echo "</select>
+    <select name='procedure'>";
+    $query25 = "SELECT * FROM [Hospital].[dbo].[Procedure]";
+    $sql25 = sqlsrv_query($db_connect, $query25);
+    while ($row25 = sqlsrv_fetch_array($sql25, SQLSRV_FETCH_ASSOC)) {
+        echo "<option value ='{$row25['ID']}'> {$row25['Name']}</option>";
+    }
+    echo "</select>
     <input type='text' placeholder='Дата поступления' name='DateIn'/>
     <input type='text' placeholder='Дата выписки' name='DateOut'/>
     <input type='submit' value='добавить'></form><br>";
