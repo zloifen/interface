@@ -66,8 +66,8 @@ if ((isset($_GET['insert'])) && ($_GET['insert'] == 1)) {
     }
 
     if ($_GET['table'] == 'card') {
-        $query = "INSERT INTO  [Hospital].[dbo].[Card] VALUES ('{$_POST['PatientID']}', '{$_POST['EmployeesID']}',
-        '{$_POST['DiagnosisID']}', '{$_POST['DrugsID']}', '{$_POST['ProcedureID']}', '{$_POST['DateIn']}',
+        $query = "INSERT INTO  [Hospital].[dbo].[Card] VALUES ('{$_POST['patients']}', '{$_POST['employees']}',
+        '{$_POST['diagnosis']}', '{$_POST['drugs']}', '{$_POST['procedure']}', '{$_POST['DateIn']}',
         '{$_POST['DateOut']}')";
         $sql = sqlsrv_query($db_connect, $query);
         header('Location: /index.php?table=card');

@@ -359,11 +359,11 @@ if ($_GET['table'] == "card") {
     <thead>
         <tr>
             <th>Id</th>
-            <th>Id пациента</th>
-            <th>Id врача</th>
-            <th>Id диагноза</th>
-            <th>Id лекарства</th>
-            <th>Id процедуры</th>
+            <th>Пациент</th>
+            <th>Врач</th>
+            <th>Диагноз</th>
+            <th>Лекарство</th>
+            <th>Процедура</th>
             <th>Дата поступления</th>
             <th>Дата выписки</th>
             <th>Действия</th>
@@ -393,14 +393,13 @@ if ($_GET['table'] == "card") {
 
         echo "<tr>
             <td>{$row['ID']}</td>
-            <td>{$row['PatientID']}</td>
-            <td>{$row2['Name']}</td>
-            <td>{$row3['Name']}</td>
-            <td>{$row4['Number']}</td>
-            <td>{$row5['Number']}</td>
-            <td>{$row6['Number']}</td>
-            <td>". $row['DateIn']->format('Y-m-d') ."</td>
-            <td>". $row['DateOut']->format('Y-m-d') ."</td>
+            <td>{$row2['FullName']}</td>
+            <td>{$row3['FullName']}</td>
+            <td>{$row4['Name']}</td>
+            <td>{$row5['Name']}</td>
+            <td>{$row6['Name']}</td>
+            <td>".$row['DateIn']->format('Y-m-d')."</td>
+            <td>".$row['DateOut']->format('Y-m-d')."</td>
             <td style = 'text-align: center'><a href='javascript:void(0)' class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
             <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
         </tr>";
