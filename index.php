@@ -9,7 +9,7 @@ $db_connect = sqlsrv_connect("ATTO\SQLEXPRESS", array("CharacterSet" => "UTF-8")
 echo "<!DOCTYPE html>
 <html lang='en'>
 <head>
-    <title>Hosts</title>
+    <title>Hospital</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css' rel='stylesheet'>
     <link href='/design/roboto.min.css' rel='stylesheet'>
@@ -63,9 +63,17 @@ if ($_GET['table'] == "class") {
         echo "<tr>
             <td>{$row['ID']}</td>
             <td>{$row['Number']}</td>
-            <td style = 'text-align: center'><a href='javascript:void(0)' class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
+            <td style = 'text-align: center'>
+            <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
             <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
-        </tr>";
+        </tr>
+        <div id='{$row['ID']}' style='display: none;'>
+                    <form action='/process.php?update=1&table=class&id={$row['ID']}' method='post'>
+                        <input type='text' name='class' value='{$row['Number']}'/>
+                        <input type='submit' value='Обновить'>
+                    </form>
+                </div>
+        ";
     }
     echo "</tbody></table>";
 }
@@ -88,9 +96,17 @@ if ($_GET['table'] == "department") {
         echo "<tr>
             <td>{$row['ID']}</td>
             <td>{$row['Name']}</td>
-            <td style = 'text-align: center'><a href='javascript:void(0)' class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
+            <td style = 'text-align: center'>
+            <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
             <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
-        </tr>";
+        </tr>
+        <div id='{$row['ID']}' style='display: none;'>
+                    <form action='/process.php?update=1&table=department&id={$row['ID']}' method='post'>
+                        <input type='text' name='department' value='{$row['Name']}'/>
+                        <input type='submit' value='Обновить'>
+                    </form>
+                </div>
+        ";
     }
     echo "</tbody></table>";
 }
@@ -117,10 +133,20 @@ if ($_GET['table'] == "roles") {
             <td>{$row['ID']}</td>
             <td>{$row['Name']}</td>
             <td>{$row['Salary']}</td>
-            <td style = 'text-align: center'><a href='javascript:void(0)' class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
+            <td style = 'text-align: center'>
+            <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
             <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
-        </tr>";
+        </tr>
+        <div id='{$row['ID']}' style='display: none;'>
+                    <form action='/process.php?update=1&table=roles&id={$row['ID']}' method='post'>
+                        <input type='text' name='name' value='{$row['Name']}'/>
+                        <input type='text' name='salary' value='{$row['Salary']}'/>
+                        <input type='submit' value='Обновить'>
+                    </form>
+                </div>
+        ";
     }
+    echo "</tbody></table>";
 }
 
 
@@ -143,9 +169,17 @@ if ($_GET['table'] == "diagnosis") {
         echo "<tr>
             <td>{$row['ID']}</td>
             <td>{$row['Name']}</td>
-            <td style = 'text-align: center'><a href='javascript:void(0)' class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
+            <td style = 'text-align: center'>
+            <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
             <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
-        </tr>";
+        </tr>
+        <div id='{$row['ID']}' style='display: none;'>
+                    <form action='/process.php?update=1&table=diagnosis&id={$row['ID']}' method='post'>
+                        <input type='text' name='name' value='{$row['Name']}'/>
+                        <input type='submit' value='Обновить'>
+                    </form>
+                </div>
+        ";
     }
     echo "</tbody></table>";
 }
@@ -155,16 +189,20 @@ if ($_GET['table'] == "drugs") {
     $sql = sqlsrv_query($db_connect, $query);
     echo "<form action='/process.php?insert=1&table=drugs' method='post'>
     <input type='text' placeholder='Название лекарства' name='name'/>
-    <input type='text' placeholder='Продолжительность приема' name='duration'/> дней
+    <input type='text' placeholder='Продолжительность приема' name='duration'/>
     <input type='text' placeholder='Дневная доза' name='dailydose'/>
+    <input type='text' placeholder='Разовая доза' name='singledose'/>
+    <input type='text' placeholder='Цена' name='price'/>
     <input type='submit' value='добавить'></form><br>";
     echo "<table class='table table-striped table-hover '>
     <thead>
         <tr>
             <th>Id</th>
             <th>Название</th>
-            <th>Продолжительность приема</th>
-            <th>Дневная доза</th>
+            <th>Продолжительность приема дня(дней)</th>
+            <th>Дневная доза мг</th>
+            <th>Разовая доза доза  мг</th>
+            <th>Цена одной пачки (100 мг)</th>
             <th>Действия</th>
         </tr>
     </thead>
@@ -175,9 +213,23 @@ if ($_GET['table'] == "drugs") {
             <td>{$row['Name']}</td>
             <td>{$row['Duration']}</td>
             <td>{$row['DailyDose']}</td>
-            <td style = 'text-align: center'><a href='javascript:void(0)' class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
+            <td>{$row['SingleDose']}</td>
+            <td>{$row['Price']}</td>
+            <td style = 'text-align: center'>
+            <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
             <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
-        </tr>";
+        </tr>
+        <div id='{$row['ID']}' style='display: none;'>
+                    <form action='/process.php?update=1&table=drugs&id={$row['ID']}' method='post'>
+                        <input type='text' name='name' value='{$row['Name']}'/>
+                        <input type='text' name='duration' value='{$row['Duration']}'/>
+                        <input type='text' name='dailydose' value='{$row['DailyDose']}'/>
+                        <input type='text' name='singledose' value='{$row['SingleDose']}'/>
+                        <input type='text' name='price' value='{$row['Price']}'/>
+                        <input type='submit' value='Обновить'>
+                    </form>
+                </div>
+        ";
     }
     echo "</tbody></table>";
 }
@@ -204,9 +256,18 @@ if ($_GET['table'] == "procedure") {
             <td>{$row['ID']}</td>
             <td>{$row['Name']}</td>
             <td>{$row['Price']}</td>
-            <td style = 'text-align: center'><a href='javascript:void(0)' class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
+            <td style = 'text-align: center'>
+            <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
             <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
-        </tr>";
+        </tr>
+        <div id='{$row['ID']}' style='display: none;'>
+                    <form action='/process.php?update=1&table=procedure&id={$row['ID']}' method='post'>
+                        <input type='text' name='name' value='{$row['Name']}'/>
+                        <input type='text' name='price' value='{$row['Price']}'/>
+                        <input type='submit' value='Обновить'>
+                    </form>
+                </div>
+        ";
     }
     echo "</tbody></table>";
 }
@@ -274,9 +335,40 @@ if ($_GET['table'] == "employees") {
             <td>{$row3['Name']}</td>
             <td>{$row4['Number']}</td>
             <td>{$row['Specialization']}</td>
-            <td style = 'text-align: center'><a href='javascript:void(0)' class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
+            <td style = 'text-align: center'>
+            <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
             <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
-        </tr>";
+        </tr>
+        <div id='{$row['ID']}' style='display: none;'>
+                    <form action='/process.php?update=1&table=employees&id={$row['ID']}' method='post'>
+                        <input type='text' name='fio' value='{$row['FullName']}'/>
+                        <input type='text' name='birthday' value=". $row['DateOfBirth']->format('Y-m-d') .">
+                        <select name='role'>";
+                        $query21 = "SELECT * FROM [Hospital].[dbo].[Roles]";
+                        $sql21 = sqlsrv_query($db_connect, $query21);
+                        while ($row21 = sqlsrv_fetch_array($sql21, SQLSRV_FETCH_ASSOC)) {
+                            echo "<option value ='{$row21['ID']}'> {$row21['Name']}</option>";
+                        }
+                        echo "</select>
+                        <select name='department'>";
+                        $query22 = "SELECT * FROM [Hospital].[dbo].[Department]";
+                        $sql22 = sqlsrv_query($db_connect, $query22);
+                        while ($row22 = sqlsrv_fetch_array($sql22, SQLSRV_FETCH_ASSOC)) {
+                            echo "<option value ='{$row22['ID']}'> {$row22['Name']}</option>";
+                        }
+                        echo "</select>
+                        <select name='class'>";
+                        $query23 = "SELECT * FROM [Hospital].[dbo].[Class]";
+                        $sql23 = sqlsrv_query($db_connect, $query23);
+                        while ($row23 = sqlsrv_fetch_array($sql23, SQLSRV_FETCH_ASSOC)) {
+                            echo "<option value ='{$row23['ID']}'> {$row23['Number']}</option>";
+                        }
+                        echo "</select>
+                        <input type='text' name='specialization' value='{$row['Specialization']}'/>
+                        <input type='submit' value='Обновить'>
+                    </form>
+                </div>
+        ";
     }
     echo "</tbody></table>";
 }
@@ -304,11 +396,21 @@ if ($_GET['table'] == "patients") {
         echo "<tr>
             <td>{$row['ID']}</td>
             <td>{$row['FullName']}</td>
-            <td>". $row['DateOfBirth']->format('Y-m-d') ."</td>
+            <td>" . $row['DateOfBirth']->format('Y-m-d') . "</td>
             <td>{$row['BloodGroup']}</td>
-            <td style = 'text-align: center'><a href='javascript:void(0)' class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
+            <td style = 'text-align: center'>
+            <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
             <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
-        </tr>";
+        </tr>
+        <div id='{$row['ID']}' style='display: none;'>
+                    <form action='/process.php?update=1&table=patients&id={$row['ID']}' method='post'>
+                        <input type='text' name='fio' value='{$row['FullName']}'/>
+                        <input type='text' name='birthday' value=" . $row['DateOfBirth']->format('Y-m-d') . ">
+                        <input type='text' name='bloodgroup' value='{$row['BloodGroup']}'/>
+                        <input type='submit' value='Обновить'>
+                    </form>
+                </div>
+        ";
     }
     echo "</tbody></table>";
 }
@@ -400,9 +502,53 @@ if ($_GET['table'] == "card") {
             <td>{$row6['Name']}</td>
             <td>".$row['DateIn']->format('Y-m-d')."</td>
             <td>".$row['DateOut']->format('Y-m-d')."</td>
-            <td style = 'text-align: center'><a href='javascript:void(0)' class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
+            <td style = 'text-align: center'>
+            <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
             <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
-        </tr>";
+        </tr>
+        <div id='{$row['ID']}' style='display: none;'>
+                    <form action='/process.php?update=1&table=card&id={$row['ID']}' method='post'>
+                        <select name='patients'>";
+                        $query21 = "SELECT * FROM [Hospital].[dbo].[Patients]";
+                        $sql21 = sqlsrv_query($db_connect, $query21);
+                        while ($row21 = sqlsrv_fetch_array($sql21, SQLSRV_FETCH_ASSOC)) {
+                            echo "<option value ='{$row21['ID']}'> {$row21['FullName']}</option>";
+                        }
+                        echo "</select>
+                        <select name='employees'>";
+                        $query22 = "SELECT * FROM [Hospital].[dbo].[Employees]";
+                        $sql22 = sqlsrv_query($db_connect, $query22);
+                        while ($row22 = sqlsrv_fetch_array($sql22, SQLSRV_FETCH_ASSOC)) {
+                            echo "<option value ='{$row22['ID']}'> {$row22['FullName']}</option>";
+                        }
+                        echo "</select>
+                        <select name='diagnosis'>";
+                        $query23 = "SELECT * FROM [Hospital].[dbo].[Diagnosis]";
+                        $sql23 = sqlsrv_query($db_connect, $query23);
+                        while ($row23 = sqlsrv_fetch_array($sql23, SQLSRV_FETCH_ASSOC)) {
+                            echo "<option value ='{$row23['ID']}'> {$row23['Name']}</option>";
+                        }
+                        echo "</select>
+                        <select name='drugs'>";
+                        $query24 = "SELECT * FROM [Hospital].[dbo].[Drugs]";
+                        $sql24 = sqlsrv_query($db_connect, $query24);
+                        while ($row24 = sqlsrv_fetch_array($sql24, SQLSRV_FETCH_ASSOC)) {
+                            echo "<option value ='{$row24['ID']}'> {$row24['Name']}</option>";
+                        }
+                        echo "</select>
+                        <select name='procedure'>";
+                        $query25 = "SELECT * FROM [Hospital].[dbo].[Procedure]";
+                        $sql25 = sqlsrv_query($db_connect, $query25);
+                        while ($row25 = sqlsrv_fetch_array($sql25, SQLSRV_FETCH_ASSOC)) {
+                            echo "<option value ='{$row25['ID']}'> {$row25['Name']}</option>";
+                        }
+                        echo "</select>
+                        <input type='text' name='DateIn' value=" . $row['DateIn']->format('Y-m-d') . ">
+                        <input type='text' name='DateOut' value=" . $row['DateOut']->format('Y-m-d') . ">
+                        <input type='submit' value='Обновить'>
+                                    </form>
+                                </div>
+                        ";
     }
     echo "</tbody></table>";
 }
