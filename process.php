@@ -150,3 +150,67 @@ if ((isset($_GET['update'])) && ($_GET['update'] == 1)) {
         exit();
     }
 }
+
+if ((isset($_GET['delete'])) && ($_GET['delete'] == 1)) {
+    if ($_GET['table'] == 'class') {
+        $query = "DELETE FROM [Hospital].[dbo].[Class] WHERE ID ={$_GET['id']}";
+        $sql = sqlsrv_query($db_connect, $query);
+        header('Location: /index.php?table=class');
+        exit();
+    }
+    if ($_GET['table'] == 'department') {
+        $query = "DELETE FROM [Hospital].[dbo].[Department] WHERE ID ={$_GET['id']}";
+        $sql = sqlsrv_query($db_connect, $query);
+        header('Location: /index.php?table=department');
+        exit();
+    }
+
+    if ($_GET['table'] == 'roles') {
+        $query = "DELETE FROM [Hospital].[dbo].[Roles] WHERE ID ={$_GET['id']}";
+        $sql = sqlsrv_query($db_connect, $query);
+        header('Location: /index.php?table=roles');
+        exit();
+    }
+
+    if ($_GET['table'] == 'diagnosis') {
+        $query = "DELETE FROM [Hospital].[dbo].[Diagnosis] WHERE ID ={$_GET['id']}";
+        $sql = sqlsrv_query($db_connect, $query);
+        header('Location: /index.php?table=diagnosis');
+        exit();
+    }
+
+    if ($_GET['table'] == 'drugs') {
+        $query = "DELETE FROM [Hospital].[dbo].[Drugs] WHERE ID ={$_GET['id']}";
+        $sql = sqlsrv_query($db_connect, $query);
+        header('Location: /index.php?table=drugs');
+        exit();
+    }
+
+    if ($_GET['table'] == 'procedure') {
+        $query = "DELETE FROM [Hospital].[dbo].[Procedure] WHERE ID ={$_GET['id']}";
+        $sql = sqlsrv_query($db_connect, $query);
+        header('Location: /index.php?table=procedure');
+        exit();
+    }
+
+    if ($_GET['table'] == 'employees') {
+        $query = "DELETE FROM [Hospital].[dbo].[Employees] WHERE ID ={$_GET['id']}";
+        $sql = sqlsrv_query($db_connect, $query);
+        header('Location: /index.php?table=employees');
+        exit();
+    }
+
+    if ($_GET['table'] == 'patients') {
+        $query = "DELETE FROM [Hospital].[dbo].[Patients] WHERE ID ={$_GET['id']}";
+        $sql = sqlsrv_query($db_connect, $query);
+        header('Location: /index.php?table=patients');
+        exit();
+    }
+
+    if ($_GET['table'] == 'card') {
+        $query = "DELETE FROM [Hospital].[dbo].[Card] WHERE ID ={$_GET['id']}";
+        $sql = sqlsrv_query($db_connect, $query);
+        header('Location: /index.php?table=card');
+        exit();
+    }
+}

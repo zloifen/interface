@@ -64,8 +64,9 @@ if ($_GET['table'] == "class") {
             <td>{$row['ID']}</td>
             <td>{$row['Number']}</td>
             <td style = 'text-align: center'>
-            <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
-            <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
+            <a href='javascript:void(0)' onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
+            <a href='/process.php?delete=1&table=class&id={$row['ID']}' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a>
+            </td>
         </tr>
         <div id='{$row['ID']}' style='display: none;'>
                     <form action='/process.php?update=1&table=class&id={$row['ID']}' method='post'>
@@ -98,7 +99,7 @@ if ($_GET['table'] == "department") {
             <td>{$row['Name']}</td>
             <td style = 'text-align: center'>
             <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
-            <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
+             <a href='/process.php?delete=1&table=department&id={$row['ID']}' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a>
         </tr>
         <div id='{$row['ID']}' style='display: none;'>
                     <form action='/process.php?update=1&table=department&id={$row['ID']}' method='post'>
@@ -135,7 +136,7 @@ if ($_GET['table'] == "roles") {
             <td>{$row['Salary']}</td>
             <td style = 'text-align: center'>
             <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
-            <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
+             <a href='/process.php?delete=1&table=roles&id={$row['ID']}' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a>
         </tr>
         <div id='{$row['ID']}' style='display: none;'>
                     <form action='/process.php?update=1&table=roles&id={$row['ID']}' method='post'>
@@ -171,7 +172,7 @@ if ($_GET['table'] == "diagnosis") {
             <td>{$row['Name']}</td>
             <td style = 'text-align: center'>
             <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
-            <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
+             <a href='/process.php?delete=1&table=diagnosis&id={$row['ID']}' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a>
         </tr>
         <div id='{$row['ID']}' style='display: none;'>
                     <form action='/process.php?update=1&table=diagnosis&id={$row['ID']}' method='post'>
@@ -217,7 +218,7 @@ if ($_GET['table'] == "drugs") {
             <td>{$row['Price']}</td>
             <td style = 'text-align: center'>
             <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
-            <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
+             <a href='/process.php?delete=1&table=drugs&id={$row['ID']}' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a>
         </tr>
         <div id='{$row['ID']}' style='display: none;'>
                     <form action='/process.php?update=1&table=drugs&id={$row['ID']}' method='post'>
@@ -258,7 +259,7 @@ if ($_GET['table'] == "procedure") {
             <td>{$row['Price']}</td>
             <td style = 'text-align: center'>
             <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
-            <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
+             <a href='/process.php?delete=1&table=procedure&id={$row['ID']}' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a>
         </tr>
         <div id='{$row['ID']}' style='display: none;'>
                     <form action='/process.php?update=1&table=procedure&id={$row['ID']}' method='post'>
@@ -337,7 +338,7 @@ if ($_GET['table'] == "employees") {
             <td>{$row['Specialization']}</td>
             <td style = 'text-align: center'>
             <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
-            <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
+            <a href='/process.php?delete=1&table=employees&id={$row['ID']}' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a>
         </tr>
         <div id='{$row['ID']}' style='display: none;'>
                     <form action='/process.php?update=1&table=employees&id={$row['ID']}' method='post'>
@@ -400,7 +401,7 @@ if ($_GET['table'] == "patients") {
             <td>{$row['BloodGroup']}</td>
             <td style = 'text-align: center'>
             <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
-            <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
+            <a href='/process.php?delete=1&table=patients&id={$row['ID']}' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a>
         </tr>
         <div id='{$row['ID']}' style='display: none;'>
                     <form action='/process.php?update=1&table=patients&id={$row['ID']}' method='post'>
@@ -427,7 +428,7 @@ if ($_GET['table'] == "card") {
     }
     echo "</select>
     <select name='employees'>";
-    $query22 = "SELECT * FROM [Hospital].[dbo].[Employees]";
+    $query22 = "SELECT * FROM [Hospital].[dbo].[Employees] WHERE RoleID = 1";
     $sql22 = sqlsrv_query($db_connect, $query22);
     while ($row22 = sqlsrv_fetch_array($sql22, SQLSRV_FETCH_ASSOC)) {
         echo "<option value ='{$row22['ID']}'> {$row22['FullName']}</option>";
@@ -504,7 +505,7 @@ if ($_GET['table'] == "card") {
             <td>".$row['DateOut']->format('Y-m-d')."</td>
             <td style = 'text-align: center'>
             <a href='javascript:void(0)'  onclick=\"document.getElementById('{$row['ID']}').style.display='block'; \" class='btn btn-flat btn-primary btn-xs delete_button'>Редактировать</a>
-            <a href='javascript:void(0)' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a></td>
+            <a href='/process.php?delete=1&table=card&id={$row['ID']}' class='btn btn-flat btn-danger btn-xs delete_button'>Удалить</a>
         </tr>
         <div id='{$row['ID']}' style='display: none;'>
                     <form action='/process.php?update=1&table=card&id={$row['ID']}' method='post'>
